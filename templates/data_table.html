@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+   <table id="data" class="table table-striped">
+      <thead>
+      <tr>
+         {% for column in data.columns %}
+         <th>{{ column }}</th>
+         {% endfor %}
+      </tr>
+      </thead>
+      <tbody>
+         {% for index, row in data.iterrows() %}
+         <tr>
+            {% for value in row %}
+            <td>{{ value }}</td>
+            {% endfor %}
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+{% endblock %}
+
+{% block scripts %}
+   <script>
+      $(document).ready(function () {
+         $('#data').DataTable({layout: {
+		topStart: {
+			buttons: [
+				{
+					extend: 'searchPanes',
+					config: {
+						cascadePanes: true
+					}
+				}
+			]
+		}
+	}});
+         });
+   </script>
+{% endblock %}
